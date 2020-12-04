@@ -72,6 +72,10 @@ router.route('/register')
     .get(defaultController.registerGet)
     .post(defaultController.registerPost);
 
+router.route('/search')
+    .get(defaultController.searchGet)
+    .post(defaultController.searchPost);
+
 
 router.route('/post/:id')
     .get(defaultController.getSinglePost)

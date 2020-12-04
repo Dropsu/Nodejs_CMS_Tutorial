@@ -19,6 +19,35 @@ module.exports = {
         res.render('default/login', {message: req.flash('error')});
     },
 
+    searchPost: (req, res) => {
+        let errors = [];
+
+        if (!req.body.searchtext) {
+            errors.push({message: 'Search text is mandatory'});
+        }
+
+        if (errors.length > 0) {
+            res.render('default/index', {
+                errors: errors,
+            });
+        } else {
+            const query = { $text: { $search: req.body.searchtext} };
+
+
+            console.log (query);
+
+            const posts = Post.find(query);
+            const categories = Category.find();
+
+            console.log(posts);
+
+            res.render('default/index', {posts: posts, categories: categories});
+        }
+    },
+
+    searchGet: (req, res) => {
+        res.render('default/index');
+    },
 
     loginPost: (req, res) => {
 

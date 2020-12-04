@@ -1,18 +1,25 @@
 <div class="row">
-
     <!-- Blog Entries Column -->
     <div class="col-md-8">
-
+        {{#if errors}}
+            {{#each errors}}
+                <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                    <strong>{{message}}</strong>
+                </div>
+            {{/each}}
+        {{/if}}
         <h1 class="my-4">Page Heading
             <small>Secondary Text</small>
         </h1>
+
+        {{#if posts}}
 
         <!-- Blog Post -->
         {{#each posts}}
 
 
             <div class="card mb-4">
-                <img class="card-img-top" src="https://placeimg.com/750/300/tech" alt="Card image cap">
+                <!--<img class="card-img-top" src="https://placeimg.com/750/300/tech" alt="Card image cap">-->
                 <div class="card-body">
                     <h2 class="card-title">{{title}}</h2>
                     <p class="card-text">{{description}}</p>
@@ -25,6 +32,7 @@
             </div>
 
         {{/each}}
+        {{/if}}
 
         <!-- Pagination -->
         <ul class="pagination justify-content-center mb-4">
@@ -45,12 +53,14 @@
         <div class="card my-4">
             <h5 class="card-header">Search</h5>
             <div class="card-body">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
-                </span>
-                </div>
+                <form action="/search" method="post">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." name="searchtext">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="submit">Go!</button>
+                        </span>
+                    </div>
+                </form>
             </div>
         </div>
 
