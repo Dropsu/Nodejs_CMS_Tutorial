@@ -8,7 +8,6 @@ const User = require('../models/UserModel').User;
 module.exports = {
 
     index: async (req, res) => {
-
         const posts = await Post.find();
         const categories = await Category.find();
         res.render('default/index', {posts: posts, categories: categories});
@@ -19,7 +18,7 @@ module.exports = {
         res.render('default/login', {message: req.flash('error')});
     },
 
-    searchPost: (req, res) => {
+    searchPost: async (req, res) => {
         let errors = [];
 
         if (!req.body.searchtext) {
@@ -31,17 +30,10 @@ module.exports = {
                 errors: errors,
             });
         } else {
-            const query = { $text: { $search: req.body.searchtext} };
-
-
-            console.log (query);
-
-            const posts = Post.find(query);
-            const categories = Category.find();
-
+            const posts = await Post.find(  {title: {$regex: req.body.searchtext, $options: 'i'}} ).exec();
             console.log(posts);
 
-            res.render('default/index', {posts: posts, categories: categories});
+            res.render('default/index', {posts: posts, categories: null});
         }
     },
 
