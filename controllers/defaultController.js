@@ -33,7 +33,7 @@ module.exports = {
             const posts = await Post.find(  {title: {$regex: req.body.searchtext, $options: 'i'}} ).exec();
             console.log(posts);
 
-            res.render('default/index', {posts: posts, categories: null});
+            res.json(posts);
         }
     },
 
