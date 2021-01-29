@@ -10,7 +10,7 @@ module.exports = {
     index: async (req, res) => {
         const posts = await Post.find();
         const categories = await Category.find();
-        res.json([posts, categories]);
+        res.render('default/index', {posts: posts, categories: categories});
     },
 
     /* LOGIN ROUTES */
